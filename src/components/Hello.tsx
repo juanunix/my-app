@@ -1,12 +1,22 @@
 // src/components/Hello.tsx
+import './Hello.css';
 
 import * as React from 'react';
-import './Hello.css';
+import { connect, Dispatch } from 'react-redux';
+
+import * as actions from '../actions/';
+import { IStoreState } from '../types';
+
+
 export interface IProps {
   name: string;
-  enthusiasmLevel?: number;
+  enthusiasmLevel: number;
   onIncrement?: () => void;
   onDecrement?: () => void;
+}
+
+function getExclamationMarks(numChars: number) {
+  return Array(numChars + 1).join('!');
 }
 
 function Hello({ name, enthusiasmLevel = 1, onIncrement, onDecrement }: IProps) {
@@ -27,10 +37,23 @@ function Hello({ name, enthusiasmLevel = 1, onIncrement, onDecrement }: IProps) 
   );
 }
 
-export default Hello;
+// export default Hello;
 
 // helpers
 
-function getExclamationMarks(numChars: number) {
-  return Array(numChars + 1).join('!');
+export function mapStateToProps({ enthusiasmLevel, languageName }: IStoreState) {
+  return {
+    enthusiasmLevel,
+    name: languageName
+  }
 }
+
+export function mapDispatchToProps(dispatch: Dispatch<actions.EnthusiasmAction>) {
+  return {
+    onDecrement: () => dispatch(actions.decrementEnthusiasm()),
+    onIncrement: () => dispatch(actions.incrementEnthusiasm())
+  }
+}
+
+export default connect<IProps>(mapStateToProps, mapDispatchToProps)(Hello);
+

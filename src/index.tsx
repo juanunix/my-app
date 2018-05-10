@@ -9,15 +9,11 @@ import Hello from './components/Hello';
 import { enthusiasm } from './reducers';
 import registerServiceWorker from './registerServiceWorker';
 
-
-const store = createStore(enthusiasm, {
-  enthusiasmLevel: 1,
-  languageName: 'TypeScript'
-});
+const store = createStore(enthusiasm , {languageName:"TypeScript", enthusiasmLevel:1});
 
 ReactDOM.render(
   <Provider store={store}>
-    <Hello name="Carlos" enthusiasmLevel={1} />
+    <Hello />
   </Provider>,
   document.getElementById('root') as HTMLElement
 );

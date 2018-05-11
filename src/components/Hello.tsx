@@ -2,10 +2,7 @@
 import './Hello.css';
 
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
 
-import * as actions from '../actions/';
-import { IStoreState } from '../types';
 
 
 export interface IProps {
@@ -37,23 +34,8 @@ function Hello({ name, enthusiasmLevel = 1, onIncrement, onDecrement }: IProps) 
   );
 }
 
-// export default Hello;
+export default Hello;
 
 // helpers
 
-export function mapStateToProps({ enthusiasmLevel, languageName }: IStoreState) {
-  return {
-    enthusiasmLevel,
-    name: languageName
-  }
-}
-
-export function mapDispatchToProps(dispatch: Dispatch<actions.EnthusiasmAction>) {
-  return {
-    onDecrement: () => dispatch(actions.decrementEnthusiasm()),
-    onIncrement: () => dispatch(actions.incrementEnthusiasm())
-  }
-}
-
-export default connect<IProps>(mapStateToProps, mapDispatchToProps)(Hello);
 

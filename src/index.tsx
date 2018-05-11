@@ -5,7 +5,7 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
-import Hello from './components/Hello';
+import Hello from './containers/hello'
 import { enthusiasm } from './reducers';
 import registerServiceWorker from './registerServiceWorker';
 

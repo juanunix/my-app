@@ -3,19 +3,23 @@ import './index.css';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
 
 import registerServiceWorker from './registerServiceWorker';
-import Hello from './scenes/hello/containers/hello';
-import { enthusiasm } from './scenes/hello/reducers';
+import CounterPage from './scenes/counter/components/counterPage';
+import { createReduxCounterGateway } from './scenes/counter/state/reduxCounterGateway';
+import store from './scenes/counter/store';
+import { createChangeCounterInteractor } from './scenes/counter/useCases/ChangeCounterInteractor';
 
-const store = createStore(enthusiasm , {languageName:"TypeScript", enthusiasmLevel:1});
+const counterGateway = createReduxCounterGateway(store.dispatch);
+const changeCounterInteractor = createChangeCounterInteractor(counterGateway);
+
 
 ReactDOM.render(
   <Provider store={store}>
-    <Hello />
+    <CounterPage
+      changeCounterInteractor={changeCounterInteractor}
+    />
   </Provider>,
   document.getElementById('root') as HTMLElement
 );
-
 registerServiceWorker();
